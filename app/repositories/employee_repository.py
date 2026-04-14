@@ -9,8 +9,8 @@ def get_by_id(db: Session, employee_id: int) -> Employee | None:
 
 
 def list_salaries_for_country(db: Session, country: str) -> list[int]:
-    stmt = select(Employee.salary).where(Employee.country == country)
-    return list(db.scalars(stmt).all())
+    statement = select(Employee.salary).where(Employee.country == country)
+    return list(db.scalars(statement).all())
 
 
 def create(db: Session, employee: Employee) -> Employee:

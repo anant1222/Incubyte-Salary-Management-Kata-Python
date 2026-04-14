@@ -15,9 +15,9 @@ def get_country_metrics(
     name: str = Query(...),
     db: Session = Depends(get_db),
 ) -> dict[str, Any]:
-    metrics = metrics_service.country_salary_metrics(db, name)
+    country_metrics = metrics_service.country_salary_metrics(db, name)
     return success_response(
         message="Country salary metrics fetched successfully",
         status_code=200,
-        data=metrics.model_dump(mode="json"),
+        data=country_metrics.model_dump(mode="json"),
     )
