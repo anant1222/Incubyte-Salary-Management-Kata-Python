@@ -1,6 +1,9 @@
-def deduction_for_country(country: str, gross_salary: int) -> int:
+def breakdown_for_country(country: str, gross_salary: int) -> tuple[int, int]:
     if country == "India":
-        return (gross_salary * 10) // 100
-    if country == "United States":
-        return (gross_salary * 12) // 100
-    return 0
+        deduction = (gross_salary * 10) // 100
+    elif country == "United States":
+        deduction = (gross_salary * 12) // 100
+    else:
+        deduction = 0
+    net_salary = gross_salary - deduction
+    return deduction, net_salary

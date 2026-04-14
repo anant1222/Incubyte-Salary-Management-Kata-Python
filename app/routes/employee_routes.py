@@ -16,11 +16,11 @@ def get_employee_salary(
     employee_id: int,
     db: Session = Depends(get_db),
 ) -> dict[str, Any]:
-    breakdown = employee_service.get_employee_salary_breakdown(db, employee_id)
+    salary_breakdown = employee_service.get_employee_salary_breakdown(db, employee_id)
     return success_response(
         message="Employee salary fetched successfully",
         status_code=200,
-        data=breakdown.model_dump(mode="json"),
+        data=salary_breakdown.model_dump(mode="json"),
     )
 
 

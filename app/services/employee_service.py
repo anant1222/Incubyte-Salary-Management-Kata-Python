@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from app.models.employee import Employee
 from app.repositories import employee_repository
 from app.schemas.employee import EmployeeCreate, EmployeeRead, EmployeeSalaryBreakdown
-from app.services.salary_service import deduction_for_country
+from app.services.salary_service import breakdown_for_country
 
 
 def _require_employee(db: Session, employee_id: int) -> Employee:
@@ -21,13 +21,13 @@ def get_employee_by_id(db: Session, employee_id: int) -> EmployeeRead:
 
 def get_employee_salary_breakdown(db: Session, employee_id: int) -> EmployeeSalaryBreakdown:
     employee = _require_employee(db, employee_id)
-    gross = employee.salary
-    deduction = deduction_for_country(employee.country, gross)
+    gross_salary = employee.salary
+    deduction, net_salary = breakdown_for_country(employee.country, gross_salary)
     return EmployeeSalaryBreakdown(
         employee_id=employee.id,
-        gross_salary=gross,
+        gross_salary=gross_salary,
         deduction=deduction,
-        net_salary=gross - deduction,
+        net_salary=net_salary,
     )
 
 
