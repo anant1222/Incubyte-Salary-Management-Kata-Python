@@ -33,7 +33,5 @@ def update_employee(db: Session, employee_id: int, payload: EmployeeCreate) -> E
 
 
 def delete_employee(db: Session, employee_id: int) -> None:
-    employee = employee_repository.get_by_id(db, employee_id)
-    if employee is None:
-        raise HTTPException(status_code=404, detail="Employee not found")
+    employee = _require_employee(db, employee_id)
     employee_repository.delete(db, employee)
