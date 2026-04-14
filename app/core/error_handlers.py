@@ -54,7 +54,7 @@ def register_error_handlers(app: FastAPI) -> None:
             message = "Request could not be processed"
         else:
             message = str(detail)
-        body = error_response(message=message, status_code=exc.status_code, data=None)
+        body = error_response(message=message, status_code=exc.status_code, data={})
         return JSONResponse(status_code=exc.status_code, content=body)
 
     @app.exception_handler(RequestValidationError)
