@@ -12,3 +12,9 @@ def create(db: Session, employee: Employee) -> Employee:
     db.commit()
     db.refresh(employee)
     return employee
+
+
+def update(db: Session, employee: Employee) -> Employee:
+    db.commit()
+    db.refresh(employee)
+    return employee

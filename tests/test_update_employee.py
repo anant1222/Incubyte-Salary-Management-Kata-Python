@@ -8,7 +8,7 @@ _SEED = {
 }
 
 _UPDATE = {
-    "full_name": "Anant Yadav",
+    "full_name": "Anant Verma",
     "job_title": "Senior Backend Engineer",
     "country": "United States",
     "salary": 150000,
