@@ -16,9 +16,9 @@ def create_employee(
     payload: EmployeeCreate,
     db: Session = Depends(get_db),
 ) -> dict[str, Any]:
-    data = employee_service.create_employee(db, payload)
+    employee = employee_service.create_employee(db, payload)
     return success_response(
         message="Employee created successfully",
         status_code=201,
-        data=data.model_dump(mode="json"),
+        data=employee.model_dump(mode="json"),
     )
