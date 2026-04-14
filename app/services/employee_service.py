@@ -30,3 +30,8 @@ def update_employee(db: Session, employee_id: int, payload: EmployeeCreate) -> E
         setattr(employee, key, value)
     employee_repository.update(db, employee)
     return EmployeeRead.model_validate(employee)
+
+
+def delete_employee(db: Session, employee_id: int) -> None:
+    employee = _require_employee(db, employee_id)
+    employee_repository.delete(db, employee)

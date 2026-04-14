@@ -24,6 +24,19 @@ def get_employee(
     )
 
 
+@router.delete("/employees/{employee_id}", status_code=200)
+def delete_employee(
+    employee_id: int,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    employee_service.delete_employee(db, employee_id)
+    return success_response(
+        message="Employee deleted successfully",
+        status_code=200,
+        data={},
+    )
+
+
 @router.put("/employees/{employee_id}", status_code=200)
 def update_employee(
     employee_id: int,
