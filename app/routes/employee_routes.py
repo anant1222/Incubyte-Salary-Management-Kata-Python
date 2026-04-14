@@ -24,6 +24,20 @@ def get_employee(
     )
 
 
+@router.put("/employees/{employee_id}", status_code=200)
+def update_employee(
+    employee_id: int,
+    payload: EmployeeCreate,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    employee_read = employee_service.update_employee(db, employee_id, payload)
+    return success_response(
+        message="Employee updated successfully",
+        status_code=200,
+        data=employee_read.model_dump(mode="json"),
+    )
+
+
 @router.post("/employees", status_code=201)
 def create_employee(
     payload: EmployeeCreate,
