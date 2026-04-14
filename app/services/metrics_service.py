@@ -2,7 +2,7 @@ from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from app.repositories import employee_repository
-from app.schemas.metrics import CountrySalaryMetrics
+from app.schemas.metrics import CountrySalaryMetrics, JobTitleSalaryMetrics
 
 
 def country_salary_metrics(db: Session, country: str) -> CountrySalaryMetrics:
@@ -20,5 +20,20 @@ def country_salary_metrics(db: Session, country: str) -> CountrySalaryMetrics:
         country=country,
         min_salary=min_salary,
         max_salary=max_salary,
+        avg_salary=avg_salary,
+    )
+
+
+def job_title_salary_metrics(db: Session, *, job_title: str) -> JobTitleSalaryMetrics:
+    salaries = employee_repository.list_salaries_for_job_title(db, job_title)
+    if not salaries:
+        raise HTTPException(
+            status_code=404,
+            detail="No employees found for the given job title",
+        )
+    count = len(salaries)
+    avg_salary = sum(salaries) // count
+    return JobTitleSalaryMetrics(
+        job_title=job_title,
         avg_salary=avg_salary,
     )

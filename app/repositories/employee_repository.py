@@ -13,6 +13,11 @@ def list_salaries_for_country(db: Session, country: str) -> list[int]:
     return list(db.scalars(statement).all())
 
 
+def list_salaries_for_job_title(db: Session, job_title: str) -> list[int]:
+    statement = select(Employee.salary).where(Employee.job_title == job_title)
+    return list(db.scalars(statement).all())
+
+
 def create(db: Session, employee: Employee) -> Employee:
     db.add(employee)
     db.commit()
