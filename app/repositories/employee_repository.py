@@ -1,3 +1,4 @@
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.models.employee import Employee
@@ -5,6 +6,11 @@ from app.models.employee import Employee
 
 def get_by_id(db: Session, employee_id: int) -> Employee | None:
     return db.get(Employee, employee_id)
+
+
+def list_salaries_for_country(db: Session, country: str) -> list[int]:
+    stmt = select(Employee.salary).where(Employee.country == country)
+    return list(db.scalars(stmt).all())
 
 
 def create(db: Session, employee: Employee) -> Employee:
