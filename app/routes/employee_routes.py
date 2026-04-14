@@ -11,6 +11,19 @@ from app.services import employee_service
 router = APIRouter(tags=["employees"])
 
 
+@router.get("/employees/{employee_id}", status_code=200)
+def get_employee(
+    employee_id: int,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    employee = employee_service.get_employee_by_id(db, employee_id)
+    return success_response(
+        message="Employee fetched successfully",
+        status_code=200,
+        data=employee.model_dump(mode="json"),
+    )
+
+
 @router.post("/employees", status_code=201)
 def create_employee(
     payload: EmployeeCreate,
