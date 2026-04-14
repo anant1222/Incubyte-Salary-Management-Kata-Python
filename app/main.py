@@ -3,9 +3,11 @@ from collections.abc import AsyncIterator
 
 from fastapi import FastAPI
 
+import app.models  # noqa: F401
+
 from app.core.error_handlers import register_error_handlers
 from app.db.database import Base, engine
-from app.routes import health_routes
+from app.routes import employee_routes, health_routes, metrics_routes
 
 
 @asynccontextmanager
@@ -22,6 +24,8 @@ def create_app() -> FastAPI:
     )
     register_error_handlers(app)
     app.include_router(health_routes.router)
+    app.include_router(metrics_routes.router)
+    app.include_router(employee_routes.router)
     return app
 
 
