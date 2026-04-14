@@ -51,3 +51,10 @@ class EmployeeRead(BaseModel):
     job_title: str
     country: str
     salary: int
+
+
+class EmployeeSalaryBreakdown(BaseModel):
+    employee_id: int
+    gross_salary: int
+    deduction: int
+    net_salary: int

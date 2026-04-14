@@ -11,6 +11,19 @@ from app.services import employee_service
 router = APIRouter(tags=["employees"])
 
 
+@router.get("/employees/{employee_id}/salary", status_code=200)
+def get_employee_salary(
+    employee_id: int,
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    breakdown = employee_service.get_employee_salary_breakdown(db, employee_id)
+    return success_response(
+        message="Employee salary fetched successfully",
+        status_code=200,
+        data=breakdown.model_dump(mode="json"),
+    )
+
+
 @router.get("/employees/{employee_id}", status_code=200)
 def get_employee(
     employee_id: int,
