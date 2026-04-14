@@ -15,11 +15,11 @@ def get_job_metrics(
     title: str = Query(...),
     db: Session = Depends(get_db),
 ) -> dict[str, Any]:
-    job_metrics = metrics_service.job_title_salary_metrics(db, title)
+    job_title_metrics = metrics_service.job_title_salary_metrics(db, job_title=title)
     return success_response(
         message="Job title salary metrics fetched successfully",
         status_code=200,
-        data=job_metrics.model_dump(mode="json"),
+        data=job_title_metrics.model_dump(mode="json"),
     )
 
 
