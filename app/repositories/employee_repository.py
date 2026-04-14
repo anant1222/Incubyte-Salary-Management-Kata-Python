@@ -18,3 +18,8 @@ def update(db: Session, employee: Employee) -> Employee:
     db.commit()
     db.refresh(employee)
     return employee
+
+
+def delete(db: Session, employee: Employee) -> None:
+    db.delete(employee)
+    db.commit()
